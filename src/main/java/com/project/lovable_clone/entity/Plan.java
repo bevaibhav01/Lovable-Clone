@@ -13,9 +13,9 @@ public class Plan {
     String name;
     String stripePriceId;
     Integer maxProjects;
-    Integer  maxTokenPerDay; //max preview allowed
+    Integer  maxTokenPerDay;
+    Integer maxPreviews; //max preview allowed
     Boolean unlimitedAI; //unlimited acces to LLM, ignore max token
     Boolean active;
-
 
 }

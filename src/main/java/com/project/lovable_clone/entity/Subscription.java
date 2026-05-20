@@ -20,7 +20,7 @@ public class Subscription {
     String stripeSubscriptionId;
     Instant currentPeriodStart;
     Instant currentPeriodEnd;
-    Instant cancelAtPeriodEnd;
+    Boolean cancelAtPeriodEnd=false;
     Instant createdAt;
     Instant updatedAt;
 

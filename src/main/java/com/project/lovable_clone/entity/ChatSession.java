@@ -9,4 +9,6 @@ public class ChatSession {
     Instant createdAt;
     Instant updatedAt;
 
+    Instant deletedAt;
+
 }

@@ -4,6 +4,8 @@ import com.project.lovable_clone.dto.subscription.CheckoutRequest;
 import com.project.lovable_clone.dto.subscription.CheckoutResponse;
 import com.project.lovable_clone.dto.subscription.PortalResponse;
 import com.project.lovable_clone.dto.subscription.SubscriptionResponse;
+import org.springframework.stereotype.Service;
+
 
 public interface SubscriptionService {
     SubscriptionResponse getCurrentSubscription(Long userId);

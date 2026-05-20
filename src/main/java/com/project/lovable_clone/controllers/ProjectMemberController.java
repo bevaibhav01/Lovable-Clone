@@ -2,6 +2,7 @@ package com.project.lovable_clone.controllers;
 
 import com.project.lovable_clone.dto.member.InviteMemberRequest;
 import com.project.lovable_clone.dto.member.MemberResponse;
+import com.project.lovable_clone.dto.member.UpdateMemberRoleRequest;
 import com.project.lovable_clone.entity.ProjectMember;
 import com.project.lovable_clone.service.ProjectMemberService;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class ProjectMemberController {
     private final ProjectMemberService projectMemberService;
 
     @GetMapping
-    public ResponseEntity<List<ProjectMember>> getProjectMembers(@PathVariable Long projectId ){
+    public ResponseEntity<List<MemberResponse>> getProjectMembers(@PathVariable Long projectId ){
         Long userId=1L;
         return ResponseEntity.ok(projectMemberService.getProjectMembers(projectId,userId));
     }
@@ -33,7 +34,7 @@ public class ProjectMemberController {
     }
 
     @PatchMapping("/{memberId}")
-    public ResponseEntity<MemberResponse> updateMemberRole(@PathVariable Long memberId,@PathVariable Long projectId,@RequestBody InviteMemberRequest request){
+    public ResponseEntity<MemberResponse> updateMemberRole(@PathVariable Long memberId, @PathVariable Long projectId, @RequestBody UpdateMemberRoleRequest request){
        Long userId=1L;
        return  ResponseEntity.ok(projectMemberService.updateMemberRole(projectId,memberId,request,userId));
     }
