@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,8 +39,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectResponse getUserProjectById(Long id, Long userId) {
-
-        return null;
+        Project project=getAccessibleProjectById(id,userId);
+        return projectMapper.toProjectReponse(project);
     }
 
     @Override
@@ -59,11 +60,26 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public ProjectResponse updateProject(Long id, ProjectRequest request, Long userId) {
-        return null;
+        Project project=getAccessibleProjectById(id,userId);
+
+        project.setName(request.name());
+        project=projectRepository.save(project);
+        //try to remove .save and see if we get old name and then get project by id to understamd transactional
+        return projectMapper.toProjectReponse(project);
+
     }
 
     @Override
     public void softDelete(Long id, Long userId) {
+        Project project=getAccessibleProjectById(id,userId);
+        if(!project.getOwner().getId().equals(userId)){
+            throw new RuntimeException("You are not allowed to delete");
+        }
+        project.setDeletedAt(Instant.now());
+        projectRepository.save(project); //same does save is needed?
+    }
 
+    public Project getAccessibleProjectById(Long projectId,Long userId){
+        return projectRepository.findAccessibleProjectById(projectId,userId).orElseThrow();
     }
 }
